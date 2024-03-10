@@ -1,5 +1,5 @@
 {
-  "itemGroup.mymod": "MyMod",
+  "itemGroup.mymod.main": "MyMod",
   "itemGroup.mymod.functional": "Functional",
   "itemGroup.mymod.equipment": "Equipment",
   "itemGroup.mymod.cuisine": "Cuisine",

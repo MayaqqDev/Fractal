@@ -1,7 +1,5 @@
 package de.dafuqs.fractal.mixin.client;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import de.dafuqs.fractal.interfaces.*;
 import de.dafuqs.fractal.api.*;
 import net.fabricmc.api.*;
@@ -29,58 +27,50 @@ public abstract class CreativeInventoryScreenCustomTextureMixin {
 	@Unique
 	private ItemGroup fractal$renderedItemGroup;
 	
-	@ModifyArg(method = "drawBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
+	// BACKGROUND
+	@ModifyArg(method = "drawBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V", ordinal = 0))
 	private Identifier injectCustomGroupTexture(Identifier original) {
 		ItemSubGroup subGroup = getSelectedSubGroup();
-		if (subGroup == null || subGroup.getBackgroundTexture() == null) return original;
-		return subGroup.getBackgroundTexture();
-	}
-
-	// Use @WrapOperation as a "safe" @Redirect
-	// to emulate 1.20.1 functionality and preserve API compatability
-	@WrapOperation(method = "drawBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"))
-	private void drawCustomScrollbarTexture(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
-		ItemSubGroup subGroup = getSelectedSubGroup();
-		if (subGroup == null || subGroup.getBackgroundTexture() == null) {
-			original.call(instance, texture, x, y, width, height);
-			return;
-		}
-		instance.drawTexture(subGroup.getBackgroundTexture(), x, y, this.hasScrollbar() ? 0 : 12, 136, width, height);
-	}
-	@Inject(method = "drawBackground", at = @At("RETURN"))
-	private void releaseGroupInstance(DrawContext context, float delta, int mouseX, int mouseY, CallbackInfo ci) {
-		fractal$renderedItemSubGroup = null;
+		return (subGroup == null || subGroup.getStyle() == null || subGroup.getStyle().backgroundTexture() == null) ? original : subGroup.getStyle().backgroundTexture();
 	}
 	
-	@Inject(method = "renderTabIcon", at = @At(value = "HEAD"))
-	private void injectCustomTabTexture(DrawContext context, ItemGroup group, CallbackInfo ci) {
-		fractal$renderedItemGroup = group;
-		fractal$renderedItemSubGroup = getRenderedSubGroup();
-	}
-
-	@WrapOperation(method = "renderTabIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"))
-	private void drawCustomTabTexture(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
-		// (semi-)pseudocode for V, adapted from 1.20.1 code
-		/*
-			int v = 0;
-			if (group == selectedTab) v += 32;
-			if (group.getRow() != ItemGroup.Row.TOP) v += 64;
-		 */
+	// SCROLLBAR
+	@ModifyArgs(method = "drawBackground", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"))
+	private void injectCustomScrollbarTexture(org.spongepowered.asm.mixin.injection.invoke.arg.Args args) {
 		ItemSubGroup subGroup = getSelectedSubGroup();
-		if (subGroup == null || subGroup.getBackgroundTexture() == null) {
-			original.call(instance, texture, x, y, width, height);
-			return;
+		if(subGroup != null && subGroup.getStyle() != null) {
+			Identifier scrollbarTextureID = this.hasScrollbar() ? subGroup.getStyle().enabledScrollbarTexture() : subGroup.getStyle().disabledScrollbarTexture();
+			if(scrollbarTextureID != null) {
+				args.set(0, scrollbarTextureID);
+			}
 		}
-		int v = 0;
-		if (fractal$renderedItemGroup == selectedTab) v += 32;
-		if (fractal$renderedItemGroup.getRow() != ItemGroup.Row.TOP) v += 64;
-		instance.drawTexture(subGroup.getBackgroundTexture(), x, y, selectedTab.getColumn() == 0 ? 195 : 223, v, width, height);
 	}
-
-	@Inject(method = "renderTabIcon", at = @At("RETURN"))
-	private void restoreTabTexture(DrawContext context, ItemGroup group, CallbackInfo ci) {
-		fractal$renderedItemGroup = null;
-		fractal$renderedItemSubGroup = null;
+	
+	// ICON
+	@Inject(method = "renderTabIcon", at = @At("HEAD"))
+	private void captureContextGroup(DrawContext context, ItemGroup group, CallbackInfo ci) {
+		this.fractal$renderedItemGroup = group;
+	}
+	
+	@ModifyArg(method = "renderTabIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"))
+	private Identifier injectCustomTabTexture(Identifier original) {
+		ItemSubGroup subGroup = getRenderedSubGroup();
+		if(subGroup == null) {
+			return original;
+		}
+		ItemSubTabStyle style = subGroup.getStyle();
+		if(style == null) {
+			return original;
+		}
+		
+		boolean onTop = this.fractal$renderedItemGroup.getRow() == ItemGroup.Row.TOP;
+		boolean isSelected = selectedTab == this.fractal$renderedItemGroup;
+		
+		Identifier texture = onTop
+				? isSelected ? this.fractal$renderedItemGroup.getColumn() == 0 ? style.tabTopFirstSelectedTexture() : style.tabTopSelectedTexture() : style.tabTopUnselectedTexture()
+				: isSelected ? this.fractal$renderedItemGroup.getColumn() == 0 ? style.tabBottomFirstSelectedTexture() : style.tabBottomSelectedTexture() : style.tabBottomUnselectedTexture();
+		
+		return texture == null ? original : texture;
 	}
 	
 	@Unique

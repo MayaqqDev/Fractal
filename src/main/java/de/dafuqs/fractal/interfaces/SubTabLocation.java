@@ -12,4 +12,5 @@ public interface SubTabLocation {
 	// right
 	int fractal$getX2();
 	int fractal$getH2();
+	
 }

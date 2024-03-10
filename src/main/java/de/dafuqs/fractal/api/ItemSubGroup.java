@@ -7,7 +7,6 @@ import net.minecraft.item.*;
 import net.minecraft.registry.*;
 import net.minecraft.text.*;
 import net.minecraft.util.*;
-import org.jetbrains.annotations.*;
 
 import java.util.*;
 
@@ -18,18 +17,30 @@ public class ItemSubGroup extends ItemGroup {
 	protected final ItemGroup parent;
 	protected final Identifier identifier;
 	protected final int indexInParent;
-	protected final @Nullable Identifier backgroundTexture;
+	protected final ItemSubTabStyle style;
 	
-	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, @Nullable Identifier backgroundTexture, EntryCollector entryCollector) {
+	public static final Identifier SUBTAB_SELECTED_TEXTURE_LEFT = new Identifier("fractal", "container/creative_inventory/subtab_selected_left");
+	public static final Identifier SUBTAB_UNSELECTED_TEXTURE_LEFT = new Identifier("fractal", "container/creative_inventory/subtab_unselected_left");
+	public static final Identifier SUBTAB_SELECTED_TEXTURE_RIGHT = new Identifier("fractal", "container/creative_inventory/subtab_selected_right");
+	public static final Identifier SUBTAB_UNSELECTED_TEXTURE_RIGHT = new Identifier("fractal", "container/creative_inventory/subtab_unselected_right");
+	
+	public static final ItemSubTabStyle VANILLA_STYLE = new ItemSubTabStyle.Builder().build();
+	
+	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, EntryCollector entryCollector) {
+		this(parent, identifier, displayName, entryCollector, VANILLA_STYLE);
+	}
+	
+	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, EntryCollector entryCollector, ItemSubTabStyle style) {
 		super(parent.getRow(), parent.getColumn(), parent.getType(), displayName, () -> ItemStack.EMPTY, entryCollector);
+		this.style = style;
 		this.identifier = identifier;
-		this.backgroundTexture = backgroundTexture;
 		this.parent = parent;
-		ItemGroupParent igp = (ItemGroupParent) parent;
-		this.indexInParent = igp.fractal$getChildren().size();
-		igp.fractal$getChildren().add(this);
-		if (igp.fractal$getSelectedChild() == null) {
-			igp.fractal$setSelectedChild(this);
+		
+		ItemGroupParent itemGroupParent = (ItemGroupParent) parent;
+		this.indexInParent = itemGroupParent.fractal$getChildren().size();
+		itemGroupParent.fractal$getChildren().add(this);
+		if (itemGroupParent.fractal$getSelectedChild() == null) {
+			itemGroupParent.fractal$setSelectedChild(this);
 		}
 	}
 	
@@ -107,8 +118,8 @@ public class ItemSubGroup extends ItemGroup {
 		return indexInParent;
 	}
 	
-	public @Nullable Identifier getBackgroundTexture() {
-		return this.backgroundTexture;
+	public ItemSubTabStyle getStyle() {
+		return style;
 	}
 	
 	public static class Builder {
@@ -116,7 +127,7 @@ public class ItemSubGroup extends ItemGroup {
 		protected ItemGroup parent;
 		protected final Identifier identifier;
 		protected Text displayName;
-		protected Identifier backgroundTexture;
+		protected ItemSubTabStyle style;
 		private EntryCollector entryCollector;
 		
 		public Builder(ItemGroup parent, Identifier identifier, Text displayName) {
@@ -125,8 +136,8 @@ public class ItemSubGroup extends ItemGroup {
 			this.displayName = displayName;
 		}
 		
-		public Builder backgroundTexture(Identifier texture) {
-			this.backgroundTexture = texture;
+		public Builder styled(ItemSubTabStyle style) {
+			this.style = style;
 			return this;
 		}
 		
@@ -136,7 +147,7 @@ public class ItemSubGroup extends ItemGroup {
 		}
 		
 		public ItemSubGroup build() {
-			ItemSubGroup subGroup = new ItemSubGroup(parent, identifier, displayName, backgroundTexture, entryCollector);
+			ItemSubGroup subGroup = new ItemSubGroup(parent, identifier, displayName, entryCollector, style);
 			SUB_GROUPS.add(subGroup);
 			return subGroup;
 		}

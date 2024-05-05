@@ -18,7 +18,7 @@ import java.util.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CreativeInventoryScreen.class)
-public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInventoryScreen<CreativeScreenHandler> implements SubTabLocation, CreativeInventoryScreenAccessor {
+public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInventoryScreen<CreativeScreenHandler> implements SubTabLocation {
 	
 	@Unique
 	private static final int LAST_TAB_INDEX_RENDERING_LEFT = 11;

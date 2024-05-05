@@ -29,10 +29,10 @@ public class Fractal implements ModInitializer {
 			.noRenderedName()
 			.build();
 
-	public static final Identifier ITEM_GROUP_BACKGROUND_TEXTURE_IDENTIFIER = new Identifier("fractal", "textures/custom_item_group.png");
+	public static final Identifier ITEM_GROUP_BACKGROUND_TEXTURE_IDENTIFIER = new Identifier("mymod", "textures/custom_item_group.png");
 
-	public static final ItemGroup EQUIPMENT = new ItemSubGroup.Builder(MAIN, new Identifier("fractal", "equipment"), Text.translatable("itemGroup.mymod.equipment")).entries((displayContext, entries) -> entries.add(Items.APPLE)).build();
-	public static final ItemGroup FUNCTIONAL = new ItemSubGroup.Builder(MAIN, new Identifier("fractal", "functional"), Text.translatable("itemGroup.mymod.functional")).entries((displayContext, entries) -> entries.add(Items.BAKED_POTATO)).build();
+	public static final ItemGroup EQUIPMENT = new ItemSubGroup.Builder(MAIN, new Identifier("fractal", "equipment"), Text.translatable("itemGroup.mymod.equipment")).backgroundTexture(ITEM_GROUP_BACKGROUND_TEXTURE_IDENTIFIER).entries((displayContext, entries) -> entries.add(Items.APPLE)).build();
+	public static final ItemGroup FUNCTIONAL = new ItemSubGroup.Builder(MAIN, new Identifier("fractal", "functional"), Text.translatable("itemGroup.mymod.functional")).backgroundTexture(ITEM_GROUP_BACKGROUND_TEXTURE_IDENTIFIER).entries((displayContext, entries) -> entries.add(Items.BAKED_POTATO)).build();
 	public static final ItemGroup CUISINE = new ItemSubGroup.Builder(MAIN, new Identifier("fractal", "cuisine"), Text.translatable("itemGroup.mymod.cuisine")).entries((displayContext, entries) -> entries.add(Items.CACTUS)).build();
 	public static final ItemGroup RESOURCES = new ItemSubGroup.Builder(MAIN, new Identifier("fractal", "resources"), Text.translatable("itemGroup.mymod.resources")).entries((displayContext, entries) -> entries.add(Items.DANDELION)).build();
 

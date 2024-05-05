@@ -40,7 +40,9 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInvent
 	
 	@Unique
 	private int fractal$y; // tab start y
+	@Unique
 	private int fractal$x, fractal$h; // left tabs
+	@Unique
 	private int fractal$x2, fractal$h2; // right tabs
 	
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/CreativeInventoryScreen;drawMouseoverTooltip(Lnet/minecraft/client/gui/DrawContext;II)V"))

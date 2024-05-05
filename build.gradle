@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -7,22 +7,8 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    maven {
-        url 'https://maven.terraformersmc.com/releases/'
-        content {
-            includeGroup 'dev.emi'
-            includeGroup 'com.terraformersmc'
-        }
-    }
-    maven {
-        url "https://maven.shedaniel.me/"
-        content {
-            includeGroup 'me.shedaniel'
-            includeGroup 'me.shedaniel.cloth'
-            includeGroup 'me.shedaniel.cloth.api'
-            includeGroup 'dev.architectury'
-        }
-    }
+    maven { url "https://maven.terraformersmc.com" }
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {
@@ -35,16 +21,13 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Recipe viewers
-    modCompileOnly "dev.emi:emi-fabric:1.0.11+1.20.1"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-    modApi "dev.architectury:architectury-fabric:${project.architectury_version}"
-
-    // https://github.com/emilyploszaj/emi
-    modCompileOnly "dev.emi:emi-fabric:${emi_version}"
+    modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+    modApi "me.shedaniel.cloth:basic-math:0.6.1"
 
     switch (recipe_viewer.toLowerCase(Locale.ROOT)) {
-        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"); break
-        case "emi": modLocalRuntime("dev.emi:emi-fabric:${emi_version}"); break
+        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"); break
+        case "emi": modLocalRuntime("dev.emi:emi-fabric:${project.emi_version}"); break
         case "disabled": break
         default: println("Unknown recipe viewer specified: $recipe_viewer. Must be EMI, REI or disabled.")
     }
@@ -67,7 +50,7 @@ processResources {
     }
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly

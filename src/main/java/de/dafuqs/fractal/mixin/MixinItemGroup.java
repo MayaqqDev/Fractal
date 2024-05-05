@@ -13,7 +13,9 @@ import java.util.*;
 @Mixin(ItemGroup.class)
 public class MixinItemGroup implements ItemGroupParent {
 	
+	@Unique
 	private final List<ItemSubGroup> fractal$children = Lists.newArrayList();
+	@Unique
 	private ItemSubGroup fractal$selectedChild = null;
 	
 	@Inject(at = @At("HEAD"), method = "getDisplayStacks", cancellable = true)

@@ -17,20 +17,11 @@ public class ItemSubGroup extends ItemGroup {
 	protected final ItemGroup parent;
 	protected final Identifier identifier;
 	protected final int indexInParent;
-	protected final ItemSubTabStyle style;
+	protected final ItemSubGroupStyle style;
 	
-	public static final Identifier SUBTAB_SELECTED_TEXTURE_LEFT = new Identifier("fractal", "container/creative_inventory/subtab_selected_left");
-	public static final Identifier SUBTAB_UNSELECTED_TEXTURE_LEFT = new Identifier("fractal", "container/creative_inventory/subtab_unselected_left");
-	public static final Identifier SUBTAB_SELECTED_TEXTURE_RIGHT = new Identifier("fractal", "container/creative_inventory/subtab_selected_right");
-	public static final Identifier SUBTAB_UNSELECTED_TEXTURE_RIGHT = new Identifier("fractal", "container/creative_inventory/subtab_unselected_right");
+	public static final ItemSubGroupStyle DEFAULT_STYLE = new ItemSubGroupStyle.Builder().build();
 	
-	public static final ItemSubTabStyle VANILLA_STYLE = new ItemSubTabStyle.Builder().build();
-	
-	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, EntryCollector entryCollector) {
-		this(parent, identifier, displayName, entryCollector, VANILLA_STYLE);
-	}
-	
-	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, EntryCollector entryCollector, ItemSubTabStyle style) {
+	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, EntryCollector entryCollector, ItemSubGroupStyle style) {
 		super(parent.getRow(), parent.getColumn(), parent.getType(), displayName, () -> ItemStack.EMPTY, entryCollector);
 		this.style = style;
 		this.identifier = identifier;
@@ -118,7 +109,7 @@ public class ItemSubGroup extends ItemGroup {
 		return indexInParent;
 	}
 	
-	public ItemSubTabStyle getStyle() {
+	public ItemSubGroupStyle getStyle() {
 		return style;
 	}
 	
@@ -127,7 +118,7 @@ public class ItemSubGroup extends ItemGroup {
 		protected ItemGroup parent;
 		protected final Identifier identifier;
 		protected Text displayName;
-		protected ItemSubTabStyle style;
+		protected ItemSubGroupStyle style = DEFAULT_STYLE;
 		private EntryCollector entryCollector;
 		
 		public Builder(ItemGroup parent, Identifier identifier, Text displayName) {
@@ -136,7 +127,7 @@ public class ItemSubGroup extends ItemGroup {
 			this.displayName = displayName;
 		}
 		
-		public Builder styled(ItemSubTabStyle style) {
+		public Builder styled(ItemSubGroupStyle style) {
 			this.style = style;
 			return this;
 		}

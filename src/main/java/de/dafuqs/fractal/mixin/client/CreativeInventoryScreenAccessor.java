@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.gen.*;
 public interface CreativeInventoryScreenAccessor {
 	
 	@Accessor("selectedTab")
-	static ItemGroup fractal$getSelectedTab() {
+	static ItemGroup fractal$getSelectedGroup() {
 		throw new AssertionError();
 	}
 	

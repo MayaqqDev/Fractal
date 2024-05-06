@@ -10,7 +10,6 @@ import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
 import net.minecraft.text.*;
 import net.minecraft.util.*;
-import org.jetbrains.annotations.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
@@ -46,7 +45,7 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInvent
 	
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/CreativeInventoryScreen;drawMouseoverTooltip(Lnet/minecraft/client/gui/DrawContext;II)V"))
 	public void fractal$render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-		if (selectedTab instanceof ItemGroupParent parent && parent.fractal$getChildren() != null && !parent.fractal$getChildren().isEmpty()) {
+		if (selectedTab instanceof ItemGroupParent parent && !parent.fractal$getChildren().isEmpty()) {
 			if (!selectedTab.shouldRenderName()) {
 				ItemGroup child = parent.fractal$getSelectedChild();
 				int x = context.drawText(textRenderer, selectedTab.getDisplayName(), this.x + 8, this.y + 6, 4210752, false);
@@ -68,14 +67,10 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInvent
 			for (ItemSubGroup child : parent.fractal$getChildren()) {
 
 				boolean thisChildSelected = child == parent.fractal$getSelectedChild();
-				@Nullable ItemSubTabStyle style = child.getStyle();
-				@Nullable Identifier subtabTextureID = style == null
-						? (thisChildSelected
-							? rendersOnTheRight ? ItemSubGroup.SUBTAB_SELECTED_TEXTURE_RIGHT : ItemSubGroup.SUBTAB_SELECTED_TEXTURE_LEFT
-							: rendersOnTheRight ? ItemSubGroup.SUBTAB_UNSELECTED_TEXTURE_RIGHT : ItemSubGroup.SUBTAB_UNSELECTED_TEXTURE_LEFT)
-						: (thisChildSelected
-							? rendersOnTheRight ? style.selectedSubtabTextureLeft() :  style.selectedSubtabTextureRight() :
-							rendersOnTheRight ? style.unselectedSubtabTextureLeft() : style.unselectedSubtabTextureRight());
+				ItemSubGroupStyle style = child.getStyle();
+				Identifier subtabTextureID = thisChildSelected
+						? rendersOnTheRight ? style.selectedSubtabTextureRight() :  style.selectedSubtabTextureLeft()
+						: rendersOnTheRight ? style.unselectedSubtabTextureRight() : style.unselectedSubtabTextureLeft();
 				
 				context.setShaderColor(1, 1, 1, 1);
 				context.drawGuiTexture(subtabTextureID, pos[0] - tabStartOffset, pos[1], 72, 11);
@@ -131,7 +126,7 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInvent
 	@Inject(at = @At("HEAD"), method = "mouseClicked", cancellable = true)
 	public void fractal$mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> ci) {
 		ItemGroup selected = selectedTab;
-		if (selected instanceof ItemGroupParent parent && parent.fractal$getChildren() != null && !parent.fractal$getChildren().isEmpty()) {
+		if (selected instanceof ItemGroupParent parent && !parent.fractal$getChildren().isEmpty()) {
 			int x = fractal$x;
 			int y = fractal$y;
 			int w = 77;

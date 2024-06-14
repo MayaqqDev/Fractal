@@ -26,10 +26,10 @@ public record ItemSubGroupStyle(@Nullable Identifier backgroundTexture,
 								@Nullable Identifier tabBottomUnselectedTexture,
 								@Nullable Identifier tabBottomLastUnselectedTexture) {
 	
-	public static final Identifier DEFAULT_SUBTAB_SELECTED_TEXTURE_LEFT = new Identifier("fractal", "container/creative_inventory/subtab_selected_left");
-	public static final Identifier DEFAULT_SUBTAB_UNSELECTED_TEXTURE_LEFT = new Identifier("fractal", "container/creative_inventory/subtab_unselected_left");
-	public static final Identifier DEFAULT_SUBTAB_SELECTED_TEXTURE_RIGHT = new Identifier("fractal", "container/creative_inventory/subtab_selected_right");
-	public static final Identifier DEFAULT_SUBTAB_UNSELECTED_TEXTURE_RIGHT = new Identifier("fractal", "container/creative_inventory/subtab_unselected_right");
+	public static final Identifier DEFAULT_SUBTAB_SELECTED_TEXTURE_LEFT = Identifier.of("fractal", "container/creative_inventory/subtab_selected_left");
+	public static final Identifier DEFAULT_SUBTAB_UNSELECTED_TEXTURE_LEFT = Identifier.of("fractal", "container/creative_inventory/subtab_unselected_left");
+	public static final Identifier DEFAULT_SUBTAB_SELECTED_TEXTURE_RIGHT = Identifier.of("fractal", "container/creative_inventory/subtab_selected_right");
+	public static final Identifier DEFAULT_SUBTAB_UNSELECTED_TEXTURE_RIGHT = Identifier.of("fractal", "container/creative_inventory/subtab_unselected_right");
 	
 	public static class Builder {
 		

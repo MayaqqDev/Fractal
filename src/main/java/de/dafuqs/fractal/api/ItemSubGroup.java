@@ -26,12 +26,11 @@ public class ItemSubGroup extends ItemGroup {
 		this.style = style;
 		this.identifier = identifier;
 		this.parent = parent;
-		
-		ItemGroupParent itemGroupParent = (ItemGroupParent) parent;
-		this.indexInParent = itemGroupParent.fractal$getChildren().size();
-		itemGroupParent.fractal$getChildren().add(this);
-		if (itemGroupParent.fractal$getSelectedChild() == null) {
-			itemGroupParent.fractal$setSelectedChild(this);
+
+        this.indexInParent = parent.fractal$getChildren().size();
+		parent.fractal$getChildren().add(this);
+		if (parent.fractal$getSelectedChild() == null) {
+			parent.fractal$setSelectedChild(this);
 		}
 	}
 	
@@ -54,8 +53,6 @@ public class ItemSubGroup extends ItemGroup {
 		
 		this.parent.searchTabStacks.addAll(this.searchTabStacks);
 		this.parent.displayStacks.addAll(this.displayStacks);
-		
-		this.reloadSearchProvider();
 	}
 	
 	// Custom impl of the default fabric event trigger at

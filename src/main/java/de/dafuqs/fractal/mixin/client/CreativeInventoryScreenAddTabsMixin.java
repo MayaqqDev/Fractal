@@ -24,7 +24,7 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends AbstractInvent
 	private static final int LAST_TAB_INDEX_RENDERING_LEFT = 11;
 	
 	@Unique
-	private static Identifier TINYFONT_TEXTURE = Identifier.of("fractal", "textures/gui/tinyfont.png");
+	private static final Identifier TINYFONT_TEXTURE = Identifier.of("fractal", "textures/gui/tinyfont.png");
 	
 	public CreativeInventoryScreenAddTabsMixin(CreativeScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
 		super(screenHandler, playerInventory, text);

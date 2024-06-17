@@ -5,9 +5,15 @@ import de.dafuqs.fractal.api.*;
 import java.util.*;
 
 public interface ItemGroupParent {
-	
-	List<ItemSubGroup> fractal$getChildren();
-	ItemSubGroup fractal$getSelectedChild();
-	void fractal$setSelectedChild(ItemSubGroup group);
+
+	default List<ItemSubGroup> fractal$getChildren() {
+		return List.of();
+	}
+
+	default ItemSubGroup fractal$getSelectedChild() {
+		return null;
+	}
+
+	default void fractal$setSelectedChild(ItemSubGroup group) {}
 	
 }

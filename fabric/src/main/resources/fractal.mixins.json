@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.dafuqs.fractal.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "dev.mayaqq.fractal.mixin.MixinItemGroup",
+    "dev.mayaqq.fractal.mixin.MixinItemGroups"
+  ],
+  "client": [
+    "dev.mayaqq.fractal.mixin.client.CreativeInventoryScreenAccessor",
+    "dev.mayaqq.fractal.mixin.client.CreativeInventoryScreenAddTabsMixin",
+    "dev.mayaqq.fractal.mixin.client.CreativeInventoryScreenCustomTextureMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

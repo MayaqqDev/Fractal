@@ -25,6 +25,7 @@ public class FractalFabric implements ModInitializer {
                     entries.acceptAll(subGroup.getDisplayItems(), CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY);
                 }
 			})
+			.hideTitle()
 			.title(Component.translatable("itemGroup.mymod.main"))
 			.build();
 

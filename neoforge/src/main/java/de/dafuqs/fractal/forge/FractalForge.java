@@ -27,6 +27,8 @@ public class FractalForge {
                     entries.acceptAll(subGroup.getDisplayItems(), CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY);
                 }
             })
+            .hideTitle()
+            .title(Component.translatable("itemGroup.mymod.main"))
             .build();
 
     public static final ResourceLocation ITEM_GROUP_BACKGROUND_TEXTURE_IDENTIFIER = ResourceLocation.fromNamespaceAndPath("mymod", "textures/custom_item_group.png");

@@ -6,3 +6,6 @@ accessible field net/minecraft/item/ItemGroup$DisplayContext enabledFeatures Lne
 accessible field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
 accessible field net/minecraft/item/ItemGroup displayStacks Ljava/util/Collection;
 accessible field net/minecraft/item/ItemGroup searchTabStacks Ljava/util/Set;
+accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
+accessible method net/minecraft/world/item/CreativeModeTab <init> (Lnet/minecraft/world/item/CreativeModeTab$Row;ILnet/minecraft/world/item/CreativeModeTab$Type;Lnet/minecraft/network/chat/Component;Ljava/util/function/Supplier;Lnet/minecraft/world/item/CreativeModeTab$DisplayItemsGenerator;)V
+accessible class net/minecraft/world/item/CreativeModeTab$ItemDisplayBuilder

@@ -1,7 +1,9 @@
 package de.dafuqs.fractal.impl;
 
+import Event;
 import de.dafuqs.fractal.api.*;
 import net.fabricmc.fabric.api.event.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.*;
 import org.jetbrains.annotations.*;
 
@@ -9,7 +11,7 @@ import java.util.*;
 
 public class ItemSubGroupEventsImpl {
 	
-	private static final Map<Identifier, Event<ItemSubGroupEvents.ModifyEntries>> ITEM_GROUP_EVENT_MAP = new HashMap<>();
+	private static final Map<ResourceLocation, Event<ItemSubGroupEvents.ModifyEntries>> ITEM_GROUP_EVENT_MAP = new HashMap<>();
 
 	public static Event<ItemSubGroupEvents.ModifyEntries> getOrCreateModifyEntriesEvent(Identifier identifier) {
 		return ITEM_GROUP_EVENT_MAP.computeIfAbsent(identifier, (g -> createModifyEvent()));

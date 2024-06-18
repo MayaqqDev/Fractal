@@ -1,5 +1,6 @@
 package de.dafuqs.fractal.api;
 
+import Event;
 import de.dafuqs.fractal.impl.*;
 import net.fabricmc.fabric.api.event.*;
 import net.fabricmc.fabric.api.itemgroup.v1.*;

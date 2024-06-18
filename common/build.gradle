@@ -15,3 +15,8 @@ publishing {
     }
     repositories {}
 }
+
+loom {
+    Project common = project(":common")
+    accessWidenerPath = common.file("src/main/resources/fractal.accesswidener")
+}

@@ -1,17 +1,17 @@
 package de.dafuqs.fractal.mixin.client;
 
 import net.fabricmc.api.*;
-import net.minecraft.client.gui.screen.ingame.*;
-import net.minecraft.item.*;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.world.item.CreativeModeTab;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.*;
 
 @Environment(EnvType.CLIENT)
-@Mixin(CreativeInventoryScreen.class)
+@Mixin(CreativeModeInventoryScreen.class)
 public interface CreativeInventoryScreenAccessor {
 	
 	@Accessor("selectedTab")
-	static ItemGroup fractal$getSelectedGroup() {
+	static CreativeModeTab fractal$getSelectedGroup() {
 		throw new AssertionError();
 	}
 	

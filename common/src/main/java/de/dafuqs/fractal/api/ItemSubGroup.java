@@ -1,27 +1,25 @@
 package de.dafuqs.fractal.api;
 
-import net.fabricmc.fabric.api.event.*;
-import net.fabricmc.fabric.api.itemgroup.v1.*;
-import net.minecraft.item.*;
-import net.minecraft.registry.*;
-import net.minecraft.text.*;
-import net.minecraft.util.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 
-public class ItemSubGroup extends ItemGroup {
+public class ItemSubGroup extends CreativeModeTab {
 	
 	public static final List<ItemSubGroup> SUB_GROUPS = new ArrayList<>();
 	
-	protected final ItemGroup parent;
-	protected final Identifier identifier;
+	protected final CreativeModeTab parent;
+	protected final ResourceLocation identifier;
 	protected final int indexInParent;
 	protected final ItemSubGroupStyle style;
 	
 	public static final ItemSubGroupStyle DEFAULT_STYLE = new ItemSubGroupStyle.Builder().build();
 	
-	protected ItemSubGroup(ItemGroup parent, Identifier identifier, Text displayName, EntryCollector entryCollector, ItemSubGroupStyle style) {
-		super(parent.getRow(), parent.getColumn(), parent.getType(), displayName, () -> ItemStack.EMPTY, entryCollector);
+	protected ItemSubGroup(CreativeModeTab parent, ResourceLocation identifier, Component displayName, DisplayItemsGenerator entryCollector, ItemSubGroupStyle style) {
+		super(parent.row(), parent.column(), parent.getType(), displayName, () -> ItemStack.EMPTY, entryCollector);
 		this.style = style;
 		this.identifier = identifier;
 		this.parent = parent;
@@ -33,7 +31,7 @@ public class ItemSubGroup extends ItemGroup {
 		}
 	}
 	
-	public Identifier getIdentifier() {
+	public ResourceLocation getIdentifier() {
 		return identifier;
 	}
 	
@@ -42,8 +40,8 @@ public class ItemSubGroup extends ItemGroup {
 	 * (we do not want to register our subgroups, so other mods do not pick them up)
 	 */
 	@Override
-	public void updateEntries(DisplayContext context) {
-		EntriesImpl entries = new EntriesImpl(this, context.enabledFeatures);
+	public void updateEntries(ItemDisplayParameters context) {
+		CreativeModeTab.ItemDisplayBuilder entries = new ItemDisplayBuilder(this, context.enabledFeatures());
 		this.entryCollector.accept(context, entries);
 		this.displayStacks = entries.parentTabStacks;
 		this.searchTabStacks = entries.searchTabStacks;

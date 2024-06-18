@@ -12,7 +12,7 @@ public class MixinItemGroups {
 	@Inject(at = @At("HEAD"), method = "buildAllTabContents")
 	private static void updateEntries(CreativeModeTab.ItemDisplayParameters displayContext, CallbackInfo ci) {
 		ItemSubGroup.SUB_GROUPS.forEach((group) -> {
-			group.updateEntries(displayContext);
+			group.buildContents(displayContext);
 		});
 	}
 }

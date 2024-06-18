@@ -9,3 +9,7 @@ accessible field net/minecraft/item/ItemGroup searchTabStacks Ljava/util/Set;
 accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
 accessible method net/minecraft/world/item/CreativeModeTab <init> (Lnet/minecraft/world/item/CreativeModeTab$Row;ILnet/minecraft/world/item/CreativeModeTab$Type;Lnet/minecraft/network/chat/Component;Ljava/util/function/Supplier;Lnet/minecraft/world/item/CreativeModeTab$DisplayItemsGenerator;)V
 accessible class net/minecraft/world/item/CreativeModeTab$ItemDisplayBuilder
+accessible field net/minecraft/world/item/CreativeModeTab displayItemsGenerator Lnet/minecraft/world/item/CreativeModeTab$DisplayItemsGenerator;
+accessible field net/minecraft/world/item/CreativeModeTab displayItems Ljava/util/Collection;
+accessible field net/minecraft/world/item/CreativeModeTab displayItemsSearchTab Ljava/util/Set;
+accessible field net/minecraft/world/item/CreativeModeTabs OP_BLOCKS Lnet/minecraft/resources/ResourceKey;

@@ -1,7 +1,6 @@
 package de.dafuqs.fractal.api;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.*;
 import org.jetbrains.annotations.*;
 
 public record ItemSubGroupStyle(@Nullable ResourceLocation backgroundTexture,

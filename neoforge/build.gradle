@@ -8,8 +8,7 @@ architectury {
 }
 
 loom {
-    Project common = project(":common")
-    accessWidenerPath = common.file("src/main/resources/fractal.accesswidener")
+    accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 configurations {
@@ -22,10 +21,13 @@ configurations {
 
 repositories {
     maven { url = "https://maven.neoforged.net/releases/" }
+    mavenLocal();
 }
 
 dependencies {
     neoForge ("net.neoforged:neoforge:${rootProject.neoforge_version}")
+    modApi ("forgified-fabric-api:fabric-api-base:${rootProject.forgified_fabric_api_version}")
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 }
@@ -47,7 +49,7 @@ shadowJar {
 
 remapJar {
     inputFile.set(shadowJar.archiveFile)
-    injectAccessWidener = true
+    atAccessWideners.add("fractal.accesswidener")
     dependsOn shadowJar
     archiveClassifier.set(null)
 }

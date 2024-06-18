@@ -1,10 +1,10 @@
 package de.dafuqs.fractal.api;
 
-import Event;
 import de.dafuqs.fractal.impl.*;
-import net.fabricmc.fabric.api.event.*;
-import net.fabricmc.fabric.api.itemgroup.v1.*;
-import net.minecraft.util.*;
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.EventFactory;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.minecraft.resources.ResourceLocation;
 
 public final class ItemSubGroupEvents {
 	private ItemSubGroupEvents() {
@@ -13,7 +13,7 @@ public final class ItemSubGroupEvents {
 	/**
 	 * This event allows the entries of any item group to be modified.
 	 * <p/>
-	 * Use {@link #modifyEntriesEvent(Identifier)} to get the event for a specific item group.
+	 * Use {@link #modifyEntriesEvent(ResourceLocation)} to get the event for a specific item group.
 	 * <p/>
 	 * This event is invoked after those two more specific events.
 	 */
@@ -27,10 +27,10 @@ public final class ItemSubGroupEvents {
 	 * Returns the modify entries event for a specific item group. This uses the group ID and
 	 * is suitable for modifying a modded item group that might not exist.
 	 *
-	 * @param identifier the {@link Identifier} of the item group to modify
+	 * @param identifier the {@link ResourceLocation} of the item group to modify
 	 * @return the event
 	 */
-	public static Event<ItemSubGroupEvents.ModifyEntries> modifyEntriesEvent(Identifier identifier) {
+	public static Event<ItemSubGroupEvents.ModifyEntries> modifyEntriesEvent(ResourceLocation identifier) {
 		return ItemSubGroupEventsImpl.getOrCreateModifyEntriesEvent(identifier);
 	}
 

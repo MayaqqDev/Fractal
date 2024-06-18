@@ -3,7 +3,8 @@ architectury {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modImplementation ("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modCompileOnly("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 }
 
 publishing {
@@ -17,6 +18,5 @@ publishing {
 }
 
 loom {
-    Project common = project(":common")
-    accessWidenerPath = common.file("src/main/resources/fractal.accesswidener")
+    accessWidenerPath = file("src/main/resources/fractal.accesswidener")
 }

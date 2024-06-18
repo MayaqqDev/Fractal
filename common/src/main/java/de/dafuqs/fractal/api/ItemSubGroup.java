@@ -22,7 +22,7 @@ public class ItemSubGroup extends CreativeModeTab {
 	protected final ItemSubGroupStyle style;
 	
 	public static final ItemSubGroupStyle DEFAULT_STYLE = new ItemSubGroupStyle.Builder().build();
-	
+
 	protected ItemSubGroup(CreativeModeTab parent, ResourceLocation identifier, Component displayName, DisplayItemsGenerator entryCollector, ItemSubGroupStyle style) {
 		super(parent.row(), parent.column(), parent.getType(), displayName, () -> ItemStack.EMPTY, entryCollector);
 		this.style = style;

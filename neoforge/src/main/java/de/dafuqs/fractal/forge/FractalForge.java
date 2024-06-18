@@ -5,7 +5,6 @@ import de.dafuqs.fractal.api.ItemSubGroup;
 import de.dafuqs.fractal.interfaces.ItemGroupParent;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,11 +22,10 @@ public class FractalForge {
             .icon(() -> new ItemStack(Blocks.REDSTONE_BLOCK))
             .displayItems((displayContext, entries) -> {
                 entries.accept(Items.APPLE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-                /*
+                ItemGroupParent parent = FractalForge.MAIN;
                 for (ItemSubGroup subGroup : parent.fractal$getChildren()) {
                     entries.acceptAll(subGroup.getDisplayItems(), CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY);
                 }
-                 */
             })
             .build();
 

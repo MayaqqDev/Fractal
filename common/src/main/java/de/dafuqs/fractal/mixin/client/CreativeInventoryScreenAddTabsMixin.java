@@ -47,15 +47,15 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends EffectRenderin
 	public void fractal$render(GuiGraphics context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		if (selectedTab instanceof ItemGroupParent parent && !parent.fractal$getChildren().isEmpty()) {
 			if (!selectedTab.showTitle()) {
-				CreativeModeTab child = parent.fractal$getSelectedChild();
-				int x = context.drawString(font, selectedTab.getDisplayName(), this.fractal$x + 8, this.fractal$y + 6, 4210752, false);
+				ItemSubGroup child = parent.fractal$getSelectedChild();
+				int x = context.drawString(font, selectedTab.getDisplayName(), this.leftPos + 8, this.topPos + 6, 4210752, false);
 				if (child != null) {
-					x = context.drawString(font, " ", x, this.fractal$y + 6, 4210752, false);
-					x = context.drawString(font, child.getDisplayName(), x, this.fractal$y + 6, 4210752, false);
+					x = context.drawString(font, " ", x, this.topPos + 6, 4210752, false);
+					x = context.drawString(font, child.getDisplayName(), x, this.topPos + 6, 4210752, false);
 				}
 			}
-			
-			int[] pos = {this.fractal$x, this.fractal$y + 6};
+
+			int[] pos = {this.leftPos, this.topPos + 6};
 			int tabStartOffset = 68;
 			int tabWidth = 72;
 			
@@ -111,7 +111,7 @@ public abstract class CreativeInventoryScreenAddTabsMixin extends EffectRenderin
 					}
 					pos[0] = fractal$x2;
 				} else {
-					pos[0] = this.fractal$x;
+					pos[0] = this.leftPos;
 				}
 				pos[1] += 10;
 			}

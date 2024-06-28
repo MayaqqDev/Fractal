@@ -1,5 +1,6 @@
-package de.dafuqs.fractal;
+package de.dafuqs.fractal.fabric;
 
+import de.dafuqs.fractal.Fractal;
 import de.dafuqs.fractal.api.ItemSubGroup;
 import de.dafuqs.fractal.interfaces.ItemGroupParent;
 import net.fabricmc.api.*;

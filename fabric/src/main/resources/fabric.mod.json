@@ -13,7 +13,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "de.dafuqs.fractal.FractalFabric"
+      "de.dafuqs.fractal.fabric.FractalFabric"
     ],
     "emi": [
       "de.dafuqs.fractal.compat.FractalEMIPlugin"

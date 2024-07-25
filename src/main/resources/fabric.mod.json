@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "fractal",
-  "version": "${version}",
-  "name": "Fractal",
-  "description": "Adds item subgroups.",
-  "authors": [ "unascribed" ],
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [ "original: unascribed", "current maintainer: Dafuqs" ],
   "contact": {
     "repo": "https://github.com/DaFuqs/fractal"
   },
@@ -23,8 +23,7 @@
     ]
   },
   "mixins": [
-    "fractal.mixins.json",
-    "fractal-common.mixins.json"
+    "fractal.mixins.json"
   ],
   "depends": {
     "minecraft": ">=${minecraft_version}",
